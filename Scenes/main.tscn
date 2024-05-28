@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkwji4utx203i"]
+[gd_scene load_steps=12 format=3 uid="uid://dkwji4utx203i"]
 
 [ext_resource type="PackedScene" uid="uid://b60x1b1k6opfp" path="res://Scenes/player.tscn" id="1_acbmo"]
 [ext_resource type="Texture2D" uid="uid://dpllcpav6dht2" path="res://Assets/sprites/world_tileset.png" id="2_snikc"]
 [ext_resource type="PackedScene" uid="uid://cwmbxpbk62f5d" path="res://Scenes/platforms.tscn" id="3_i8qjy"]
+[ext_resource type="PackedScene" uid="uid://c7dw6wirpxv58" path="res://Scenes/slime.tscn" id="3_sx522"]
 [ext_resource type="PackedScene" uid="uid://qk14gw1li4px" path="res://Scenes/coin.tscn" id="4_7kp0d"]
 [ext_resource type="PackedScene" uid="uid://bvfbpny020i7r" path="res://Scenes/killzone.tscn" id="5_ipi7u"]
 
@@ -426,7 +427,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(320, 48), Vector2(432, 48)]
+"values": [Vector2(331, 48), Vector2(443, 48)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b0vrn"]
@@ -457,7 +458,6 @@ position_smoothing_enabled = true
 
 [node name="Killzone" parent="." instance=ExtResource("5_ipi7u")]
 position = Vector2(141, 84)
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_q2p23")
@@ -497,10 +497,13 @@ position = Vector2(775, -26)
 position = Vector2(7, 10)
 
 [node name="Platform2" parent="Platforms" instance=ExtResource("3_i8qjy")]
-position = Vector2(320, 4)
+position = Vector2(432, 48)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform2"]
 libraries = {
 "": SubResource("AnimationLibrary_b0vrn")
 }
 autoplay = "move"
+
+[node name="Slime" parent="." instance=ExtResource("3_sx522")]
+position = Vector2(504, 21)
