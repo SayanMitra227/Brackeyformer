@@ -1,12 +1,24 @@
 extends CharacterBody2D
+
+class_name Player
+
 @onready var playersprite = $AnimatedSprite2D
+@onready var game_manager = %GameManager
 
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
+var deathflag = 0
+var is_dead = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _on_game_manager_player_has_died(flag):
+	if(is_dead == false):
+		deathflag = flag
+	else:
+		deathflag = 3
+	return
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -29,13 +41,27 @@ func _physics_process(delta):
 		playersprite.flip_h = false
 	
 	#Play animation
-	if is_on_floor():
-		if (direction == 0):
-			playersprite.play("idle")
+	if (deathflag == 0):
+		is_dead = false
+		if is_on_floor():
+			if (direction == 0):
+				playersprite.play("idle")
+			else:
+				playersprite.play("run")
 		else:
-			playersprite.play("run")
+			playersprite.play("jump")
+		print (deathflag)
+	elif (deathflag == 1 && is_dead == false):
+		playersprite.play("death")
+		is_dead = true
+		print(deathflag)
+	elif(deathflag == 2 && is_dead == false):
+		is_dead = true
+		print(deathflag)
 	else:
-		playersprite.play("jump")
+		is_dead = true
+		return
+
 	# Set speed and apply movement
 	if direction:
 		velocity.x = direction * SPEED
@@ -44,3 +70,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+
+
+

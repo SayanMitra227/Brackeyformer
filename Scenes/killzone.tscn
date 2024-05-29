@@ -1,14 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvfbpny020i7r"]
+[gd_scene load_steps=3 format=3 uid="uid://bvfbpny020i7r"]
 
 [ext_resource type="Script" path="res://Scripts/killzone.gd" id="1_kimw5"]
+[ext_resource type="FontFile" uid="uid://3g6ydnm5dv70" path="res://Assets/fonts/PixelOperator8.ttf" id="2_rs2fm"]
 
 [node name="Killzone" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_kimw5")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.6
 one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Deathlabel" type="Label" parent="CanvasLayer"]
+visible = false
+visibility_layer = 2
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -6.5
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.526793, 4.99357e-07, 9.62615e-08, 1)
+theme_override_colors/font_shadow_color = Color(0.352941, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0.300051, 0.236805, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_rs2fm")
+theme_override_font_sizes/font_size = 30
+text = "You have died"
+horizontal_alignment = 1
+uppercase = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
